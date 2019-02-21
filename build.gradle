@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.60"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+/*
+ext {
+    // Git is needed in your system PATH for these commands to work.
+    // If it's not installed, you can return a random value as a workaround
+    getCommitCount = {
+        return 'git rev-list --count HEAD'.execute().text.trim()
+        // return "1"
+    }
+
+    getGitSha = {
+        return 'git rev-parse --short HEAD'.execute().text.trim()
+        // return "1"
+    }
+
+    getBuildTime = {
+        def df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
+        df.setTimeZone(TimeZone.getTimeZone("UTC"))
+        return df.format(new Date())
+    }
+}
+*/
+idea {
+    project {
+        jdkName = "1.11"
+        languageLevel = "1.11"
+    }
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget= 1.8
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/java'
+    test.java.srcDirs += 'src/main/test'
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    compile 'commons-codec:commons-codec:1.11'
+
+    // Junit
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0")
+    // to run JUnit 3/4 tests:
+    testCompile("junit:junit:4.12")
+    testRuntime("org.junit.vintage:junit-vintage-engine:4.12.0")
+
+}
+
